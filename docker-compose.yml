@@ -1,0 +1,17 @@
+version: '3.7'
+
+services:
+  step-ca:
+    image: defn/step
+    env_file: .env
+    volumes:
+    - $HOME/.password-store/step:/home/step
+  step-cli:
+    build: b/step-cli
+    network_mode: service:step-ca
+    pid: service:step-ca
+    entrypoint: [ "/renew" ]
+    command: [ "defn", "--principal", "app" ]
+    volumes:
+    - $HOME/.password-store/step:/home/step
+    - $HOME/.ssh:/data/ssh

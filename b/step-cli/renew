@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -efu
+
+user="$1"; shift
+username="${user}"
+opt="$*"
+
+sleep 2
+
+token="$(step ca token ${user} --not-after 11s --ssh --principal "${username}" ${opt} --provisioner defn --password-file .step/.pw)"
+step ssh certificate --token "${token}" --provisioner defn -f --insecure --no-password --sign --principal "${username}" ${opt} "${user}" /data/ssh/id_rsa.pub
+
+kill 1
