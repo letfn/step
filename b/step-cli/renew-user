@@ -1,6 +1,6 @@
 #!/bin/bash
 
-trap 'rm -vf /home/step/.step/.pw' EXIT
+trap 'rm -vf /home/step/.pw' EXIT
 
 set -efu
 
@@ -8,7 +8,7 @@ user="$1"; shift
 
 sleep 2
 
-token="$(step ca token ${user} --not-after 11s --ssh --password-file .step/.pw "$@")"
+token="$(step ca token ${user} --not-after 11s --ssh --password-file .pw "$@")"
 step ssh certificate --token "${token}" -f --insecure --no-password --sign "$@" "${user}" /data/ssh/id_rsa.pub
 
 kill 1
