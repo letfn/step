@@ -42,6 +42,7 @@ host: # Generate an ssh host key
 	rm -f ~/.password-store/step/.pw
 
 online: # Run online step-ca
+	$(MAKE) bootstrap
 	step-ca -password-file <(pass step/pw) .step/config/ca-online.json
 
 bootstrap: # Emit bootstrap step client
