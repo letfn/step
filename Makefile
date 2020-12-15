@@ -27,6 +27,9 @@ recreate:
 logs:
 	docker-compose logs -f
 
+fingerprint: # Fingerprint of root cert
+	step certificate fingerprint .step/certs/root_ca.crt
+
 user: # Renew user ssh cert
 	pass step/pw > ~/.password-store/step/.pw
 	$(MAKE) recreate logs
@@ -37,3 +40,9 @@ host: # Generate an ssh host key
 	env COMPOSE_FILE=docker-compose-host.yml \
 		$(MAKE) recreate logs
 	rm -f ~/.password-store/step/.pw
+
+bootstrap: # Bootstrap step client
+	step ca bootstrap --ca-url "${caurl}" --fingerprint "${fingerprint}"
+
+renew-host: # Renew ssh host cert
+	cd /mnt/ssh && step ssh renew ssh_host_ecdsa_key-cert.pub ssh_host_ecdsa_key
