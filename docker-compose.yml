@@ -10,8 +10,7 @@ services:
     build: b/step-cli
     network_mode: service:step-ca
     pid: service:step-ca
-    entrypoint: [ "/renew" ]
-    command: [ "defn", "--principal", "app" ]
+    command: "${_STEP_OPT}"
     volumes:
     - $HOME/.password-store/step:/home/step
     - $HOME/.ssh:/data/ssh
