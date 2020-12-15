@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
 
+trap 'rm -vf /home/step/.step/.pw' EXIT
+
 function main {
   set -x
 
   cd /home/step
 
-  exec "step-ca" "$@"
+  "step-ca" "$@"
 }
 
 main "$@"

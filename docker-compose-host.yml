@@ -11,7 +11,8 @@ services:
     image: defn/step:cli
     network_mode: service:step-ca
     pid: service:step-ca
-    command: "${_STEP_OPT}"
+    command: "${_STEP_HOST}"
+    entrypoint: [ "/add-host" ]
     volumes:
     - $HOME/.password-store/step:/home/step
-    - $HOME/.ssh:/data/ssh
+    - $HOME/.password-store/step/hosts:/data/ssh

@@ -3,14 +3,13 @@ SHELL := /bin/bash
 menu:
 	@perl -ne 'printf("%10s: %s\n","$$1","$$2") if m{^([\w+-]+):[^#]+#\s(.+)$$}' Makefile
 
-build: # Build defn/step
+build: # Build defn/step, defn/step:cli
 	docker build -t defn/step .
+	docker build -t defn/step:cli b/step-cli
 
-push: # Push defn/step
+push: # Push defn/step, defn/step:cli
 	docker push defn/step
-
-bash: # Run bash shell with defn/step
-	docker run --rm -ti --entrypoint bash defn/step
+	docker push defn/step:cli
 
 clean:
 	docker-compose down --remove-orphans
@@ -28,5 +27,13 @@ recreate:
 logs:
 	docker-compose logs -f
 
-renew: # Renew ssh key
+user: # Renew user ssh cert
+	pass step/pw > .step/.pw
 	$(MAKE) recreate logs
+	rm -f .step/.pw
+
+host: # Generate an ssh host key
+	pass step/pw > .step/.pw
+	env COMPOSE_FILE=docker-compose-host.yml \
+		$(MAKE) recreate logs
+	rm -f .step/.pw

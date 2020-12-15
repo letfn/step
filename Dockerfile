@@ -9,5 +9,3 @@ USER step
 COPY service /service
 
 ENTRYPOINT [ "/service" ]
-
-CMD [ "--password-file", ".step/.pw", ".step/config/ca.json" ]

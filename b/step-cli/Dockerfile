@@ -4,9 +4,10 @@ USER root
 
 RUN apk add bash
 
-COPY renew /renew
-RUN chmod 755 /renew
+COPY renew-user /renew-user
+COPY add-host /add-host
+RUN chmod 755 /renew-user /add-host
 
 USER step
 
-ENTRYPOINT [ "/renew" ]
+ENTRYPOINT [ "/renew-user" ]
