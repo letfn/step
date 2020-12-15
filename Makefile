@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 
 menu:
-	@perl -ne 'printf("%10s: %s\n","$$1","$$2") if m{^([\w+-]+):[^#]+#\s(.+)$$}' Makefile
+	@perl -ne 'printf("%15s: %s\n","$$1","$$2") if m{^([\w+-]+):[^#]+#\s(.+)$$}' Makefile
 
 build: # Build defn/step, defn/step:cli
 	docker build -t defn/step .
