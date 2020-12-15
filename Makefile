@@ -45,4 +45,4 @@ bootstrap: # Bootstrap step client
 	step ca bootstrap --ca-url "${caurl}" --fingerprint "${fingerprint}"
 
 renew-host: # Renew ssh host cert
-	cd /mnt/ssh && step ssh renew ssh_host_ecdsa_key-cert.pub ssh_host_ecdsa_key
+	cd /mnt/ssh && step ssh renew -f ssh_host_ecdsa_key-cert.pub ssh_host_ecdsa_key
