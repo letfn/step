@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-trap 'rm -vf /home/step/.pw' EXIT
+trap 'rm -vf /home/step/.pw || true' EXIT
 
 function main {
   set -x

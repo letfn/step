@@ -1,6 +1,6 @@
 #!/bin/bash
 
-trap 'rm -vf /home/step/.pw' EXIT
+trap 'rm -vf /home/step/.pw || true' EXIT
 
 set -efu
 
