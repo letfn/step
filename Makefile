@@ -28,7 +28,7 @@ logs:
 	docker-compose logs -f
 
 fingerprint: # Fingerprint of root cert
-	step certificate fingerprint .step/certs/root_ca.crt
+	@step certificate fingerprint .step/certs/root_ca.crt
 
 user: # Renew user ssh cert
 	pass step/pw > ~/.password-store/step/.pw
@@ -44,8 +44,8 @@ host: # Generate an ssh host key
 online: # Run online step-ca
 	step-ca -password-file <(pass step/pw) .step/config/ca-online.json
 
-bootstrap: # Bootstrap step client
-	step ca bootstrap --ca-url "${caurl}" --fingerprint "${fingerprint}"
+bootstrap: # Emit bootstrap step client
+	@echo step ca bootstrap --ca-url "https://$(shell cat .step/config/ca-online.json | jq -r '.address')" --fingerprint "$(shell $(MAKE) fingerprint)"
 
 renew: # Renew ssh host cert
 	cd /mnt/ssh && step ssh renew -f ssh_host_ecdsa_key-cert.pub ssh_host_ecdsa_key
