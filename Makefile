@@ -41,6 +41,9 @@ host: # Generate an ssh host key
 		$(MAKE) recreate logs
 	rm -f ~/.password-store/step/.pw
 
+online: # Run online step-ca
+	step-ca -password-file <(pass step/pw) .step/config/ca-online.json
+
 bootstrap: # Bootstrap step client
 	step ca bootstrap --ca-url "${caurl}" --fingerprint "${fingerprint}"
 
