@@ -28,12 +28,12 @@ logs:
 	docker-compose logs -f
 
 user: # Renew user ssh cert
-	pass step/pw > ~/.password/step/.pw
+	pass step/pw > ~/.password-store/step/.pw
 	$(MAKE) recreate logs
-	rm -f ~/.password/step/.pw
+	rm -f ~/.password-store/step/.pw
 
 host: # Generate an ssh host key
-	pass step/pw > ~/.password/step/.pw
+	pass step/pw > ~/.password-store/step/.pw
 	env COMPOSE_FILE=docker-compose-host.yml \
 		$(MAKE) recreate logs
-	rm -f ~/.password/step/.pw
+	rm -f ~/.password-store/step/.pw

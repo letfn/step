@@ -11,6 +11,7 @@ services:
     image: defn/step:cli
     network_mode: service:step-ca
     pid: service:step-ca
+    entrypoint: [ "/renew-user" ]
     command: "${_STEP_OPT}"
     volumes:
     - $HOME/.password-store/step:/home/step
