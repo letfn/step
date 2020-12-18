@@ -1,6 +1,6 @@
 #!/bin/bash
 
-trap 'rm -vf /home/step/.pw || true' EXIT
+trap 'set +f; rm -vf /home/step/.pw* || true' EXIT
 
 set -efu
 
@@ -9,8 +9,7 @@ host="$1"; shift
 sleep 2
 
 mkdir -p hosts/${host}
-token=$(step ca token ${host} --not-after 11s --ssh --host --password-file .pw "$@")
-
+token=$(step ca token ${host} --not-after 11s --ssh --host --password-file .pw-provisioner "$@")
 step ssh certificate --token "${token}" -f --insecure --no-password --host "$@" "${host}" "/data/ssh/${host}/ssh_host_ecdsa_key"
 
 kill 1

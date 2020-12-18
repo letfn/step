@@ -16,3 +16,5 @@ services:
     volumes:
     - $HOME/.password-store/step:/home/step
     - $HOME/.password-store/step/hosts:/data/ssh
+    depends_on:
+      - step-ca

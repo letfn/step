@@ -1,12 +1,13 @@
 #!/bin/bash
 
-trap 'rm -vf /home/step/.pw || true' EXIT
+trap 'set +f; rm -vf /home/step/.pw* || true' EXIT
 
 set -efu
 
 user="$1"; shift
 
 sleep 2
+
 
 token="$(step ca token ${user} --not-after 11s --ssh --password-file .pw-provisioner "$@")"
 step ssh certificate --token "${token}" -f --insecure --no-password --sign "$@" "${user}" /data/ssh/id_rsa.pub

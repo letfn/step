@@ -12,7 +12,7 @@ services:
     network_mode: service:step-ca
     pid: service:step-ca
     entrypoint: [ "/renew-user" ]
-    command: "${_STEP_OPT}"
+    command: "${_STEP_USER}"
     volumes:
     - $HOME/.password-store/step:/home/step
     - $HOME/.ssh:/data/ssh
